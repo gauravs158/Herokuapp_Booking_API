@@ -1,19 +1,31 @@
 package coreImpementations;
 
-import createJSON.BookingDates;
-import createJSON.CreateBooking;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import specBuilders.RequestBuilder;
+import specBuilders.ResponseBuilder;
 
+import static io.restassured.RestAssured.given;
 public class Booking {
-	CreateBooking createBooking = new CreateBooking();
-	BookingDates bookingDates = new BookingDates();
-	public void createBookingObject() {
-		createBooking.setFirstname("Gaurav");
-		createBooking.setLastname("Samantaray");
-		createBooking.setDepositpaid(true);
-		createBooking.setTotalprice(33576);
-		createBooking.setAdditionalneeds("Hot Water");
-		bookingDates.setCheckin("2025-01-01");
-		bookingDates.setCheckout("2025-03-01");
-		createBooking.setBookingdates(bookingDates);
+	Response response;
+	RequestBuilder requestBuilder = new RequestBuilder();
+	ResponseBuilder responseBuilder = new ResponseBuilder();
+	RequestSpecification rs;
+	CreateBody createBody = new CreateBody();
+	public void enterDetails() {
+		
+		rs = 	given()
+					.spec(requestBuilder.getCreateBookingRequestSpecification())
+					.body(createBody.createBookingPayload());
+	}
+	
+	public Response hitHTTPRequest() {
+		response = 	rs
+					.when()
+					.post("/booking")
+					.then()
+					.spec(responseBuilder.getResponseSpecification()).extract().response();
+		
+		return response;
 	}
 }
