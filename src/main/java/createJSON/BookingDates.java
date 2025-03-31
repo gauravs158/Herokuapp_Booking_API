@@ -3,6 +3,7 @@ package createJSON;
 public class BookingDates {
 	String checkin;
 	String checkout;
+	
 	public String getCheckin() {
 		return checkin;
 	}

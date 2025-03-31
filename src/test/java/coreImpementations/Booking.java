@@ -1,31 +1,23 @@
 package coreImpementations;
 
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import specBuilders.RequestBuilder;
-import specBuilders.ResponseBuilder;
 
 import static io.restassured.RestAssured.given;
 public class Booking {
-	Response response;
-	RequestBuilder requestBuilder = new RequestBuilder();
-	ResponseBuilder responseBuilder = new ResponseBuilder();
-	RequestSpecification rs;
-	CreateBody createBody = new CreateBody();
-	public void enterDetails() {
+	public void enterDetails(Heart heart) {
 		
-		rs = 	given()
-					.spec(requestBuilder.getCreateBookingRequestSpecification())
-					.body(createBody.createBookingPayload());
+		heart.rs = 	given().log().all()
+					.spec(heart.getBuildRequestSpecObject().getCreateBookingRequestSpecification(heart))
+					.body(heart.getCreateBodyObject().createBookingPayload(heart));
 	}
 	
-	public Response hitHTTPRequest() {
-		response = 	rs
-					.when()
-					.post("/booking")
-					.then()
-					.spec(responseBuilder.getResponseSpecification()).extract().response();
+	public Response hitHTTPRequest(Heart heart) {
+		heart.response = 	heart.rs
+							.when()
+							.post("/booking")
+							.then().log().all()
+							.spec(heart.getBuildResponseSpecObject().getResponseSpecification()).extract().response();
 		
-		return response;
+		return heart.response;
 	}
 }

@@ -9,7 +9,7 @@ public class PropertiesReader {
 
 	Properties prop = new Properties();
 	String url;
-	public void getProperties() {
+	public String getProperties() {
 		
 		try {
 			FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"/src/test/resources/config.properties");
@@ -20,5 +20,6 @@ public class PropertiesReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return url;
 	}
 }

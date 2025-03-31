@@ -1,37 +1,40 @@
 package stepDefs;
 
 import org.testng.asserts.SoftAssert;
-
-import coreImpementations.Booking;
+import coreImpementations.Heart;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import io.cucumber.java.en.Then;
 
 public class TC_0001_BookTickets {
 	
-	Booking booking = new Booking();
-	Response response;
-	String stringResponse;
-	String bookingID;
+	Heart heart;
 	int statusCode;
+	String bookingID;
 	SoftAssert sa = new SoftAssert();
+	
+	public TC_0001_BookTickets(Heart heart) {
+		this.heart = heart;
+	}
   @Given("the user enters details for new booking")
   public void the_user_enters_details_for_new_booking(){
-	  booking.enterDetails();
+	  heart.getBookingObject().enterDetails(heart);
   }
 
   @When("the user hits POST http request")
   public void the_user_hits_post_http_request(){
-	  response = booking.hitHTTPRequest();
-	  stringResponse = response.asPrettyString();
+	  heart.response = heart.getBookingObject().hitHTTPRequest(heart);
+	  System.out.println("++++++++++++++++++++++");
+	  System.out.println(heart.response.asPrettyString());
+	  heart.stringResponse = heart.response.asPrettyString();
   }
 
   @Then("the bookingID is generated")
   public void the_booking_id_is_generated(){
-	  statusCode = response.getStatusCode();
-	  JsonPath js = new JsonPath(stringResponse);
+	  statusCode = heart.response.getStatusCode();
+	  JsonPath js = new JsonPath(heart.stringResponse);
+	  System.out.println(heart.stringResponse);
 	  bookingID = js.getString("bookingid");
 	  System.out.println(bookingID);
 	  sa.assertEquals(statusCode, 200);
