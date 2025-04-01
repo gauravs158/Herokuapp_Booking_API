@@ -3,7 +3,7 @@ package coreImpementations;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
-public class Booking {
+public class CreateBooking {
 	public void enterDetails(Heart heart) {
 		
 		heart.rs = 	given().log().all()

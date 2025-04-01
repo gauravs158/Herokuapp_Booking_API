@@ -26,4 +26,13 @@ public class BuildRequestSpec {
 			req = new RequestSpecBuilder().setBaseUri(url).addHeaders(heart.getCreateHeadersObject().getPartialUpdateBookingRequestSpecification()).build();
 			return req;
 		}
+		
+		public RequestSpecification getGetBookingRequestSpecification() {
+			req = new RequestSpecBuilder().setBaseUri(url)
+//					.addQueryParam("id", bookingID)
+//					.addPathParams("id", bookingID)
+					.build();
+			System.out.println("In BuildRequestSpec - getGetBookingRequestSpecification method");
+			return req;
+		}
 }

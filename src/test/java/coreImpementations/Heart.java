@@ -8,6 +8,7 @@ import specBuilders.BuildResponseSpec;
 public class Heart {
 	public Response response;
 	public RequestSpecification rs;
+	public String bookingID;
 	public String stringResponse;
 	public CreateHeaders createHeaders;
 	public CreateBody createBody;
@@ -15,7 +16,8 @@ public class Heart {
 	public BuildRequestSpec buildRequestSpec;
 	public BuildResponseSpec buildResponseSpec;
 	public ObjectFactory objectFactory;
-	public Booking booking;
+	public CreateBooking booking;
+	public CreateGetBooking createGetBooking;
 	public utilities.PropertiesReader propertiesReader;
 	String url;
 	
@@ -25,8 +27,12 @@ public class Heart {
 		this.url = propertiesReader.getProperties();
 	}
 	
-	public Booking getBookingObject() {
-		return booking = new Booking();
+	public CreateGetBooking getCreateGetBookingObject() {
+		return createGetBooking = new CreateGetBooking();
+	}
+	
+	public CreateBooking getBookingObject() {
+		return booking = new CreateBooking();
 	}
 	public CreateHeaders getCreateHeadersObject() {
 		return createHeaders = new CreateHeaders();

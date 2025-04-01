@@ -1,6 +1,6 @@
 package createJSON;
 
-public class BookingDates {
+public class BookingDatesPojo {
 	String checkin;
 	String checkout;
 	

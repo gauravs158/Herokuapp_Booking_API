@@ -1,16 +1,16 @@
 package createJSON;
 
-public class CreateBooking {
+public class CreateBookingPojo {
 	
 	String firstname;
 	String lastname;
 	int totalprice;
 	boolean depositpaid;
-	BookingDates bookingdates;
-	public BookingDates getBookingdates() {
+	BookingDatesPojo bookingdates;
+	public BookingDatesPojo getBookingdates() {
 		return bookingdates;
 	}
-	public void setBookingdates(BookingDates bookingdates) {
+	public void setBookingdates(BookingDatesPojo bookingdates) {
 		this.bookingdates = bookingdates;
 	}
 	String additionalneeds;
