@@ -24,7 +24,7 @@ public class TC_0001_BookTickets {
 
   @When("the user hits POST http request")
   public void the_user_hits_post_http_request(){
-	  heart.response = heart.getBookingObject().hitHTTPRequest(heart);
+	  heart.response = heart.getBookingObject().hitHTTPPOSTRequest(heart);
 	  System.out.println("++++++++++++++++++++++");
 	  System.out.println("heart.response.asPrettyString(): "+heart.response.asPrettyString());
 	  heart.stringResponse = heart.response.asPrettyString();

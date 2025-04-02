@@ -17,6 +17,12 @@ public class ObjectFactory {
 		bookingDates.setCheckout("2025-03-01");
 		return bookingDates;
 	}
+	
+	public BookingDatesPojo getUpdatedBookingDates() {
+		bookingDates.setCheckin("2025-01-01");
+		bookingDates.setCheckout("2025-03-01");
+		return bookingDates;
+	}
 	public CreateBookingPojo getCreateBooking() {
 		createBookingPojo.setFirstname("Gaurav");
 		createBookingPojo.setLastname("Samantaray");
@@ -24,6 +30,15 @@ public class ObjectFactory {
 		createBookingPojo.setTotalprice(33576);
 		createBookingPojo.setAdditionalneeds("Hot Water");
 		createBookingPojo.setBookingdates(getBookingDates());
+		return createBookingPojo;
+	}
+	public CreateBookingPojo getUpdateBooking() {
+		createBookingPojo.setFirstname("Nyra");
+		createBookingPojo.setLastname("Samantaray");
+		createBookingPojo.setDepositpaid(true);
+		createBookingPojo.setTotalprice(778899);
+		createBookingPojo.setAdditionalneeds("Hot Water & Cold Coffee");
+		createBookingPojo.setBookingdates(getUpdatedBookingDates());
 		return createBookingPojo;
 	}
 }

@@ -23,12 +23,13 @@ public class TC_0002_GetBooking {
 	  statusCode = heart.response.getStatusCode();
 	  js = new JsonPath(heart.stringResponse);
 	  System.out.println(heart.stringResponse);
+	  heart.bookingID = js.getString("bookingid");
   }
 
   @When("the user hits GetBookingAPI using the generated bookingID")
   public void the_user_hits_GetBookingAPI_using_the_generated_bookingID(){
-	  System.out.println("*******************************************");
-	  heart.bookingID = js.getString("bookingid");
+	  System.out.println("*******GetBookingAPI*********GetBookingAPI********GetBookingAPI*******GetBookingAPI*******GetBookingAPI*******GetBookingAPI*******");
+//	  heart.bookingID = js.getString("bookingid");
 	  System.out.println("heart.bookingID is :"+heart.bookingID);
 	  heart.getCreateGetBookingObject().getDetails(heart);
 	  
@@ -69,6 +70,7 @@ public class TC_0002_GetBooking {
 	  sa.assertEquals(additionalneeds, "Hot Water");
 	  sa.assertEquals(checkin, "2025-01-01");
 	  sa.assertEquals(checkout, "2025-03-01");
+	  System.out.println("*******GetBookingAPIend*********GetBookingAPIend********GetBookingAPIend*******GetBookingAPIend*******GetBookingAPIend*******GetBookingAPIend*******");
 	  sa.assertAll();
   }
 

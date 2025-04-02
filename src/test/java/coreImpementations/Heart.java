@@ -19,12 +19,17 @@ public class Heart {
 	public CreateBooking booking;
 	public CreateGetBooking createGetBooking;
 	public utilities.PropertiesReader propertiesReader;
+	public CreateUpdateBooking createUpdateBooking;
 	String url;
 	
 	public Heart(){
 		this.objectFactory = new ObjectFactory();
 		this.propertiesReader = new utilities.PropertiesReader();
 		this.url = propertiesReader.getProperties();
+	}
+	
+	public CreateUpdateBooking getCreateUpdateBookingObject() {
+		return createUpdateBooking = new CreateUpdateBooking();
 	}
 	
 	public CreateGetBooking getCreateGetBookingObject() {
