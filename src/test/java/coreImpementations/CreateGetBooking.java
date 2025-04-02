@@ -13,10 +13,10 @@ public class CreateGetBooking {
 	}
 	
 	public Response hitHTTPRequest(Heart heart) {
-		getDetails(heart);
+//		getDetails(heart);
 		heart.response = 	heart.rs
 							.when()
-							.get("booking/:613")
+							.get("booking/"+heart.bookingID)
 //							.get("booking/")
 							.then().log().all()
 							.spec(heart.getBuildResponseSpecObject().getResponseSpecification()).extract().response();

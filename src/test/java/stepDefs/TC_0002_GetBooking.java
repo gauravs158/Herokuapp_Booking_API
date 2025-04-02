@@ -7,14 +7,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import io.restassured.path.json.JsonPath;
 import io.cucumber.java.en.Then;
-import static io.restassured.RestAssured.*;
 
 public class TC_0002_GetBooking {
 	int statusCode;
 	SoftAssert sa = new SoftAssert();
 	Heart heart;
 	JsonPath js;
-	
+	String response;
 	public TC_0002_GetBooking(Heart heart) {
 		this.heart = heart;
 	}
@@ -31,24 +30,46 @@ public class TC_0002_GetBooking {
 	  System.out.println("*******************************************");
 	  heart.bookingID = js.getString("bookingid");
 	  System.out.println("heart.bookingID is :"+heart.bookingID);
+	  heart.getCreateGetBookingObject().getDetails(heart);
 	  
-	  String response = given().log().all().baseUri("https://restful-booker.herokuapp.com")
-			  .pathParam("id", heart.bookingID)
-			  .when().get("/booking")
-			  .then().log().all().extract().asString();
-	  System.out.println(response);
-//	  heart.response = heart.getCreateGetBookingObject().hitHTTPRequest(heart);
-//	  System.out.println("heart.response is :"+heart.response);
-//	  System.out.println("*******************************************");
+//	  response = given().log().all().baseUri("https://restful-booker.herokuapp.com")
+//			  .when().get("/booking/"+heart.bookingID)
+//			  .then().log().all().extract().asString();
   }
   
   @And("the user creates JsonResponsebody")
   public void the_user_creates_JsonResponsebody() {
-	  
+	  heart.getCreateGetBookingObject().hitHTTPRequest(heart);
+	  System.out.println("in the_user_creates_JsonResponsebody method:"+heart.response.asPrettyString());
+	  System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&");
   }
 
   @Then("the user gets same data as entered for new booking")
   public void the_user_gets_same_data_as_entered_for_new_booking(){
+	  System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+	  js = new JsonPath(heart.response.asString());
+	  String firstname = js.getString("firstname");
+	  String lastname = js.getString("lastname");
+	  String totalprice = js.getString("totalprice");
+	  String depositpaid = js.getString("depositpaid");
+	  String additionalneeds = js.getString("additionalneeds");
+	  String checkin = js.getString("bookingdates.checkin");
+	  String checkout = js.getString("bookingdates.checkout");
+	  System.out.println("firstname is :"+ firstname);
+	  System.out.println("lastname is :"+ lastname);
+	  System.out.println("totalprice is :"+ totalprice);
+	  System.out.println("depositpaid is :"+ depositpaid);
+	  System.out.println("additionalneeds is :"+ additionalneeds);
+	  System.out.println("checkin is :"+ checkin);
+	  System.out.println("checkout is :"+ checkout);
+	  sa.assertEquals(firstname, "Gaurav");
+	  sa.assertEquals(lastname, "Samantaray");
+	  sa.assertEquals(Integer.parseInt(totalprice), 33576);
+	  sa.assertEquals(Boolean.parseBoolean(depositpaid), true);
+	  sa.assertEquals(additionalneeds, "Hot Water");
+	  sa.assertEquals(checkin, "2025-01-01");
+	  sa.assertEquals(checkout, "2025-03-01");
+	  sa.assertAll();
   }
 
 }

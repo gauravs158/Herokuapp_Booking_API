@@ -26,13 +26,14 @@ public class TC_0001_BookTickets {
   public void the_user_hits_post_http_request(){
 	  heart.response = heart.getBookingObject().hitHTTPRequest(heart);
 	  System.out.println("++++++++++++++++++++++");
-	  System.out.println(heart.response.asPrettyString());
+	  System.out.println("heart.response.asPrettyString(): "+heart.response.asPrettyString());
 	  heart.stringResponse = heart.response.asPrettyString();
   }
 
   @Then("the bookingID is generated")
   public void the_booking_id_is_generated(){
 	  statusCode = heart.response.getStatusCode();
+	  System.out.println("statusCode is: "+statusCode);
 	  JsonPath js = new JsonPath(heart.stringResponse);
 	  System.out.println(heart.stringResponse);
 	  bookingID = js.getString("bookingid");
