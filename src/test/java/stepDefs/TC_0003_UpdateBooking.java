@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 
 import static io.restassured.RestAssured.*;
 
@@ -16,6 +17,8 @@ public class TC_0003_UpdateBooking {
 			+ "    \"username\" : \"admin\",\r\n"
 			+ "    \"password\" : \"password123\"\r\n"
 			+ "}";
+	String token;
+	JsonPath js;
 	public TC_0003_UpdateBooking(Heart heart) {
 		this.heart = heart;
 	}
@@ -25,12 +28,16 @@ public class TC_0003_UpdateBooking {
 		authToken = given().baseUri("https://restful-booker.herokuapp.com").body(body).contentType("application/json")
 		.when().post("/auth").then().log().all().extract().asString();
 		System.out.println("AuthToken is: "+authToken);
+		js = new JsonPath(authToken);
+		token = js.getString("token");
+		System.out.println("token is: "+token);
 	}
 	
 	@When("the user hits UpdateBookingAPI using the generated bookingID")
 	public void the_user_hits_UpdateBookingAPI_using_the_generated_bookingID() {
 		response = given().log().all().baseUri("https://restful-booker.herokuapp.com").header("Authorization", "Basic YWRtaW46cGFzc3dvcmQxMjM=")
-				.body(heart.getCreateBodyObject().updateBookingPayload(heart)).accept(ContentType.JSON)
+				.body(heart.getCreateBodyObject().updateBookingPayload(heart)).accept(ContentType.JSON).contentType("application/json")
+				.cookie("token", token)
 		.when().put("/booking/"+heart.bookingID).then().log().all().extract().asString();
 	}
 	
